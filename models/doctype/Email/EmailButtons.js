@@ -3,7 +3,7 @@ const frappe = require('frappejs');
 
 module.exports = class EmailButtons extends BaseList{
     constructor({doctype, parent, fields, page}) {
-        super({doctype: 'EmailManage', parent: parent, fields: fields, page: page});
+        super({doctype: 'Email', parent: parent, fields: fields, page: page});
     }
     
      makeToolbar() {
