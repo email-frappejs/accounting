@@ -24,7 +24,7 @@ module.exports = {
             "fieldname": "defaultIncoming",
             "label": "Default Incoming",
             "fieldtype": "Check",
-            "required": 1
+            "required": 0
         },
         {
             "fieldname": "password",
@@ -49,26 +49,9 @@ module.exports = {
             "fieldname": "defaultOutgoing",
             "label": "Default Outgoing",
             "fieldtype": "Check",
-            "required": 1
+            "required": 0
         },
-        {
-            "fieldname": "clientId",
-            "label": "Client Id",
-            "fieldtype": "Data",
-            "required": 1
-        },
-        {
-            "fieldname": "clientSecret",
-            "label": "Client Secret",
-            "fieldtype": "Data",
-            "required": 1
-        },
-        {
-            "fieldname": "refreshToken",
-            "label": "Refresh Token",
-            "fieldtype": "Data",
-            "required": 1
-        },    
+       
         {
             "fieldname": "initialSync",
             "label": "Initial Sync",
