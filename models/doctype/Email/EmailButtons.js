@@ -1,8 +1,9 @@
 const BaseList = require('frappejs/client/view/list');
 const frappe = require('frappejs');
+const BaseForm = require('frappejs/client/view/form');
 //const receiver = require('../../../email/receiver'); 
 
-module.exports = class EmailButtons extends BaseList{
+module.exports = { EmailButton: class EmailButtons extends BaseList{
     constructor({doctype, parent, fields, page}) {
         super({doctype: 'Email', parent: parent, fields: fields, page: page});
     }
@@ -44,5 +45,24 @@ module.exports = class EmailButtons extends BaseList{
             }
         })
     }
+},
+                  
+SendButton:  class SendButton extends BaseForm{
+    constructor({doctype, parent, submit_label='Submit', container, meta, inline=false}) {
+        super({doctype: 'EmailManage', parent: parent, container: container});
+    }
+
+    makeSendButton() {
+        this.sendButton = this.container.addButton(frappe._("Send"), 'primary', async (event) => {})};
+
+    makeToolbar() {
+
+        this.makeSendButton();
+        Toolbar = super.makeToolbar();
+        
+        }
+
+    },
 }
+
 
