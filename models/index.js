@@ -51,6 +51,7 @@ module.exports = {
         PurchaseReceiptSettings: require('./doctype/PurchaseReceiptSettings/PurchaseReceiptSettings.js'),
         
         Email: require('./doctype/Email/Email.js'),
+        EmailComposeForm : require('./doctype/Email/EmailComposeForm.js'),
         EmailAccount: require('./doctype/EmailAccount/EmailAccount.js'),
     }
 }
