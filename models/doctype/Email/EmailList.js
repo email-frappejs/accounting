@@ -10,8 +10,8 @@ module.exports = class EmailList extends BaseList {
         this.makeSearch();
 
         this.btnCompose = this.page.addButton(frappe._('Compose'), 'btn-primary', async () => { 
-            const emailDoc = await frappe.getNewDoc("Email");
-            await frappe.desk.showFormModal("Email",emailDoc.name);
+            const emailDoc = await frappe.getNewDoc("EmailComposeForm");
+            await frappe.desk.showFormModal("EmailComposeForm",emailDoc.name);
         });
 
         this.btnSync = this.page.addButton(frappe._('Sync'), 'btn-primary', async () => {
