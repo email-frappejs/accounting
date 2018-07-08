@@ -63,13 +63,20 @@ module.exports = {
         {
             "fieldname": "imapHost",
             "label": "IMAP Host",
-            "fieldtype": "Data",
+            "fieldtype": "Select",
+            "options": [
+                "imap.google.com",
+                "imap.mail.yahoo.com"
+            ],
             "required": 1
         },
         {
             "fieldname": "imapPort",
             "label": "IMAP Port",
-            "fieldtype": "Int",
+            "fieldtype": "Select",
+            "options": [
+                "993"
+            ],
             "required": 1
         },
         {
@@ -81,13 +88,20 @@ module.exports = {
         {
             "fieldname": "smtpHost",
             "label": "SMTP Host",
-            "fieldtype": "Data",
+            "fieldtype": "Select",
+            "options": [
+                "smtp.gmail.com",
+                "smtp.mail.yahoo.com"
+            ],
             "required": 1
         },
         {
             "fieldname": "smtpPort",
             "label": "SMTP Port",
-            "fieldtype": "Int",
+            "fieldtype": "Select",
+            "options": [
+                "465"
+            ],
             "required": 1
         },
         {
