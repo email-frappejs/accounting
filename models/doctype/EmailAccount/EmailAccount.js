@@ -60,7 +60,10 @@ module.exports = {
             "fieldtype": "Select",
             "options": [
                 "imap.gmail.com",
-                "imap.mail.yahoo.com"
+                "imap.mail.yahoo.com",
+                "imap-mail.outlook.com",
+                "imap.mail.me.com",
+                "imap.aol.com"
             ],
             "required": 1
         },
@@ -86,6 +89,9 @@ module.exports = {
             "options": [
                 "smtp.gmail.com",
                 "smtp.mail.yahoo.com",
+                "smtp-mail.outlook.com",
+                "smtp.mail.me.com",
+                "smtp.aol.com"
             ],
             "required": 1
         },
@@ -94,7 +100,8 @@ module.exports = {
             "label": "SMTP Port",
             "fieldtype": "Select",
             "options": [
-              "465"  
+              "465",
+              "587"
             ],
             "required": 1
         },
