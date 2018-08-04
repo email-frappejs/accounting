@@ -6,8 +6,14 @@
               :showDelete="checkList.length"
               @compose="newDoc"
               @delete="deleteCheckedItems"
-              @sync="receiveEmails"
             />
+            <br>
+            <ul class="row title">
+                <div > From </div>
+                <div > To</div>
+                <div > Subject</div>
+                <div > Date</div>
+            </ul>
             <ul class="list-group">
                 <list-item v-for="doc of data" :key="doc.name"
                     :id="doc.name"
@@ -16,6 +22,10 @@
                     @clickItem="openForm(doc.name)"
                     @checkItem="toggleCheck(doc.name)">
                     {{ doc[meta.titleField || 'name'] }}
+                    <!-- {{ doc['toEmailAddress'] }}
+                    {{ doc['fromEmailAddress'] }} 
+                    {{ doc['subject'] }}
+                    {{ doc['date'] }} -->
                 </list-item>
             </ul>
         </div>
@@ -35,31 +45,21 @@ export default {
   components: {
       ListActions
   },
-  async created(){
-      console.log("CREATED : ADD HERE");
-      this.$root.$emit('emailConfigView');
+   data(){
+     return {
+        data:[]
+     }  
    },
-   watch: {
-    name : async function(){
-        console.log("CREATED : ADD HERE");
-      console.log("Emails Loaded From Default ");
+    async created(){
+        console.log("This has to be fixed to filter specific emails");
         this.$root.$emit('emailConfigView');
-        this.options = await frappe.db.getAll({
-            doctype: "EmailAccount",
-            fields: ['email','enableIncoming'],
+        const data = await frappe.db.getAll({
+            doctype: this.doctype,
+            fields: ['*'],
         });
-        var Id , syncOption;
-        for(let i = 0; i < this.options.length; i++){   
-            if(this.options[i].enableIncoming){
-                Id = this.options[i].email;
-                syncOption = this.name;
-                break;
-            }
-         }
-         this.receiveEmails(Id,syncOption);
-    }
-  },
-  methods: {
+        this.data = data;
+   },
+    methods: {
     async newDoc() {
         let doc = await frappe.getNewDoc(this.doctype);
         let emailFields = frappe.getMeta('Email').fields;
@@ -73,31 +73,38 @@ export default {
               name: doc.name,
             }
           });
+        console.log("Err Fix : dump db");
+        // unable to dump on DB [ check delete + hit refresh / sync ]
         doc.on('afterInsert', (data) => {
             this.$modal.hide();
         });
     },
     async openForm(name) {
         this.activeItem = name;
-        
         const data = await frappe.db.getAll({
             doctype: this.doctype,
             fields: ['*'],
             filters:{name: this.activeItem},
         });
         let emailFields = frappe.getMeta('Email').fields;
+        emailFields[5].hidden = false;
         for(let i = 0; i < emailFields.length; i++){   
             emailFields[i].disabled = true;
         }
-        emailFields[5].hidden = false;
+        // EMAIL DATE DISABLED DOESN't Work
         emailFields[1].hidden = true;
         emailFields[3].hidden = true;
         emailFields[4].hidden = true;
         this.$router.push(`/view/${this.doctype}/${name}`);
-    },
-    async receiveEmails(Id,syncOption){ 
-        await frappe.call({method: 'sync-mail',args:{Id,syncOption}});
-    },
+    }
   }
 }
 </script>
+<style>
+.title div{
+    margin-left: 10%;
+    margin-right: 10%;
+    display: flex;
+    flex-direction: row;
+}
+</style>
