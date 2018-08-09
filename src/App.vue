@@ -6,19 +6,24 @@
     <router-view v-else name="setup" />
   </div>
 </template>
-
 <script>
 import Vue from 'vue';
 import Observable from 'frappejs/utils/observable';
 import Desk from 'frappejs/ui/components/Desk';
 import sidebarConfig from './sidebarConfig';
+import emailConfig from './emailConfig';
 
 export default {
   name: 'App',
+  created(){
+    this.$root.$on('emailConfigView', () => { 
+        this.sidebarConfig = emailConfig;
+    });
+  },
   data() {
     return {
       showDesk: true,
-      sidebarConfig
+      sidebarConfig:sidebarConfig,
     }
   },
   components: {
