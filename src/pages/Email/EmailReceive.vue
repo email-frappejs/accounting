@@ -6,15 +6,8 @@
           :name="name"
           :title="formTitle"
         />
-        <div class="p-3">
-          <form-layout
-            v-if="shouldRenderForm"
-            :doc="doc"
-            :fields="meta.fields"
-            :layout="meta.layout"
-            :invalid="invalid"
-          />
-        </div>
+        <div v-if="doc.bodyHtml" v-html="doc.bodyHtml"></div>
+        <div v-else>{{ doc.bodyText }}</div> <!-- needs to be fixed -->
         <not-found v-if="notFound" />
     </div>
 </template>
@@ -23,7 +16,6 @@ import { _ } from 'frappejs/utils';
 import frappe from 'frappejs';
 import Form from 'frappejs/ui/components/Form/Form';
 import FormActions from './EmailReceiveActions';
-
 export default {
   name: 'EmailReceiveForm',
   extends: Form,
@@ -31,14 +23,8 @@ export default {
     FormActions
   },
   computed: {
-    meta() {
-      return frappe.getMeta(this.doctype);
-    },
-    shouldRenderForm() {
-      return this.name && this.docLoaded;
-    },
     formTitle() {
-      return this.doc[this.meta.titleField];
+      return this.doc.subject;
     }
   },
   methods: {
